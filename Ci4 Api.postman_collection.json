@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "9f13c412-7295-4b83-b36d-d28ebc2ecc74",
+		"name": "Ci4 Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ci4.api.com/users",
+							"protocol": "https",
+							"host": [
+								"ci4",
+								"api",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Krishna",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "krishna@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin@123",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "admin@123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ci4.api.com/users",
+							"protocol": "https",
+							"host": [
+								"ci4",
+								"api",
+								"com"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ci4.api.com/users/1",
+							"protocol": "https",
+							"host": [
+								"ci4",
+								"api",
+								"com"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Hari Krishna",
+									"type": "text"
+								},
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "hari@gmail.com",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ci4.api.com/users/1",
+							"protocol": "https",
+							"host": [
+								"ci4",
+								"api",
+								"com"
+							],
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ci4.api.com/users/2",
+							"protocol": "https",
+							"host": [
+								"ci4",
+								"api",
+								"com"
+							],
+							"path": [
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Check Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://ci4.api.com",
+					"protocol": "https",
+					"host": [
+						"ci4",
+						"api",
+						"com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status Check Post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Hari Krishna",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://ci4.api.com",
+					"protocol": "https",
+					"host": [
+						"ci4",
+						"api",
+						"com"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
