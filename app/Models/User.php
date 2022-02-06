@@ -34,7 +34,7 @@ class User extends Model
 	protected $allowCallbacks       = true;
 	protected $beforeInsert         = ['beforeInsert'];
 	protected $afterInsert          = [];
-	protected $beforeUpdate         = ['beforeUpdate'];
+	protected $beforeUpdate         = [];
 	protected $afterUpdate          = [];
 	protected $beforeFind           = [];
 	protected $afterFind            = [];
@@ -42,28 +42,23 @@ class User extends Model
 	protected $afterDelete          = [];
 
 
-	protected function beforeInsert(array $data): array
-    {
-        return $this->getUpdatedDataWithHashedPassword($data);
-    }
-
-    protected function beforeUpdate(array $data): array
-    {
-        return $this->getUpdatedDataWithHashedPassword($data);
-    }
-
-    private function getUpdatedDataWithHashedPassword(array $data): array
+    protected function beforeInsert(array $data): array
     {
         if (isset($data['data']['password'])) {
             $plaintextPassword = $data['data']['password'];
-            $data['data']['password'] = $this->hashPassword($plaintextPassword);
+            $data['data']['password'] = hashPassword($plaintextPassword);
         }
         return $data;
     }
 
-    private function hashPassword(string $plaintextPassword): string
+	public function findByEmail(string $email)
     {
-        return password_hash($plaintextPassword, PASSWORD_BCRYPT);
-	}
+        $user = $this->asArray()->where(['email' => $email])->first();
+
+        if (!$user) 
+            throw new Exception('User does not exist for specified email address');
+
+        return $user;
+    }
 
 }

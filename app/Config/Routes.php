@@ -38,10 +38,11 @@ $routes->match(['get', 'post'], '/', 'StatusController::index');
 
 
 // auth routes
-$routes->post('login', 'AuthController::login');
+$routes->post('auth/regsiter', 'AuthController::register');
+$routes->post('auth/login', 'AuthController::login');
 
 // user routes
-$routes->get('users', 'UserController::index');
+$routes->get('users', 'UserController::index', ['filter' => 'jwtauth']);
 // $routes->get('users/create', 'UserController::create');
 $routes->post('users', 'UserController::store');
 $routes->get('users/(:num)', 'UserController::show/$1');
