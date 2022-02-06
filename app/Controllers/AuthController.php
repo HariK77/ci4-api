@@ -23,9 +23,7 @@ class AuthController extends BaseController
      * @throws ReflectionException
      */
     public function register()
-    {
-        getPrivateAndPublicKeys();
-        
+    {        
         $rules = [
             'name' => 'required',
             'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
@@ -33,17 +31,17 @@ class AuthController extends BaseController
             'password_confirmation' => 'required|matches[password]',
         ];
 
-        // if (!$this->validate($rules)) {
-		// 	$data = array(
-		// 		'errors' => $this->validator->getErrors()
-		// 	);
-		// 	return $this->failValidationErrors($data, 422, 'Validation failed');
-		// }
+        if (!$this->validate($rules)) {
+			$data = array(
+				'errors' => $this->validator->getErrors()
+			);
+			return $this->failValidationErrors($data, 422, 'Validation failed');
+		}
 
         $requestData = $this->request->getPost();
         unset($requestData['password_confirmation']);
 
-        // $this->userModel->save($requestData);
+        $this->userModel->save($requestData);
 
         return $this->getJWTForUser($requestData['email'], ResponseInterface::HTTP_CREATED);
     }
