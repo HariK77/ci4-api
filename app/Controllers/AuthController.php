@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Libraries\JWTAuth;
 use App\Models\User;
 use CodeIgniter\HTTP\Response;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -15,6 +16,7 @@ class AuthController extends BaseController
     function __construct()
     {
         $this->userModel = new User();
+        $this->JWTAuth = new JWTAuth();
     }
 
     /**
@@ -23,7 +25,7 @@ class AuthController extends BaseController
      * @throws ReflectionException
      */
     public function register()
-    {        
+    {
         $rules = [
             'name' => 'required',
             'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
@@ -32,18 +34,17 @@ class AuthController extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-			$data = array(
-				'errors' => $this->validator->getErrors()
-			);
-			return $this->failValidationErrors($data, 422, 'Validation failed');
-		}
+            $data = array(
+                'errors' => $this->validator->getErrors()
+            );
+            return $this->failValidationErrors($data, 422, 'Validation failed');
+        }
 
         $requestData = $this->request->getPost();
-        unset($requestData['password_confirmation']);
+        $userId = $this->userModel->insert($requestData);
 
-        $this->userModel->save($requestData);
-
-        return $this->getJWTForUser($requestData['email'], ResponseInterface::HTTP_CREATED);
+        $user = $this->userModel->find($userId);
+        return $this->respondCreated($user, 'Registered successfully');
     }
 
     /**
@@ -57,42 +58,25 @@ class AuthController extends BaseController
             'password' => 'required|min_length[8]|max_length[255]|validateUser[email, password]'
         ];
 
-        $errors = [
+        $errorMessages = [
             'password' => [
-                'validateUser' => 'Invalid login credentials provided'
+                'validateUser' => 'Invalid username or password'
             ]
         ];
 
-        $input = $this->getRequestInput($this->request);
-
-        if (!$this->validateRequest($input, $rules, $errors)) {
-            return $this->getResponse($this->validator->getErrors(), ResponseInterface::HTTP_BAD_REQUEST);
+        if (!$this->validate($rules, $errorMessages)) {
+            $data = array(
+                'errors' => $this->validator->getErrors()
+            );
+            return $this->failValidationErrors($data, 422, 'Validation failed');
         }
 
-        return $this->getJWTForUser($input['email']);
-    }
+        $user = $this->userModel->where('email', $this->request->getPost('email'))->first();
+        unset($user->password);
 
-    private function getJWTForUser(string $emailAddress, int $responseCode = ResponseInterface::HTTP_OK) {
-        try {
-            $user = $this->userModel->findByEmail($emailAddress);
-            unset($user['password']);
+        $accessToken = $this->JWTAuth->getSignedJWTForUser($user->email);
+        $user->access_token = $accessToken;
 
-            return $this
-                ->getResponse(
-                    [
-                        'message' => 'User authenticated successfully',
-                        'user' => $user,
-                        'access_token' => getSignedJWTForUser($emailAddress)
-                    ]
-                );
-        } catch (Exception $exception) {
-            return $this
-                ->getResponse(
-                    [
-                        'error' => $exception->getMessage(),
-                    ],
-                    $responseCode
-                );
-        }
+        return $this->respond($user, null, 'User Authenticated Successfully');
     }
 }
