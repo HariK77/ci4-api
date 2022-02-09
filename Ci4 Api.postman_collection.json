@@ -16,7 +16,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NpNC1hcGkuY29tIiwiYXVkIjoiaHR0cHM6Ly9jaTQtYXBpLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NDQxMzQxMDgsImV4cCI6MTY0NDE0MTMwOH0.dnE-dlQyOUc-xo0MayUvkDoDaCuIJlWWBaUfU0i3qQY",
+									"value": "{{accessToken}}",
 									"type": "string"
 								}
 							]
@@ -24,16 +24,28 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/users",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/users?type=admin&limit=5",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"users"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "admin",
+									"description": "types can be (admin, member, default)"
+								},
+								{
+									"key": "deleted",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
 							]
 						}
 					},
@@ -42,6 +54,16 @@
 				{
 					"name": "Add User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -70,15 +92,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/users",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/users",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"users"
 							]
 						}
@@ -88,20 +106,32 @@
 				{
 					"name": "Get User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/users/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/users/:userId",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"users",
-								"1"
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -110,6 +140,16 @@
 				{
 					"name": "Update User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -118,7 +158,8 @@
 								{
 									"key": "name",
 									"value": "Hari Krishna",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "_method",
@@ -128,20 +169,22 @@
 								{
 									"key": "email",
 									"value": "hari@gmail.com",
-									"type": "text"
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "admin",
+									"type": "default"
 								}
 							]
 						},
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/users/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/users/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"users",
 								"1"
 							]
@@ -152,20 +195,26 @@
 				{
 					"name": "Delete User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/users/3",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/users/77",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"users",
-								"3"
+								"77"
 							]
 						}
 					},
@@ -182,15 +231,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/excel-export",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/excel-export",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"excel-export"
 							]
 						}
@@ -213,15 +258,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/excel-import",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/excel-import",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"excel-import"
 							]
 						}
@@ -264,15 +305,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/auth/regsiter",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/auth/regsiter",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"auth",
 								"regsiter"
 							],
@@ -310,7 +347,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "test@gmail.com",
+									"value": "schimmel.mason@hotmail.com",
 									"type": "default"
 								},
 								{
@@ -321,15 +358,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://localhost/learn/ci4-api/public/auth/login",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/auth/login",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
 							"path": [
-								"learn",
-								"ci4-api",
-								"public",
 								"auth",
 								"login"
 							]
@@ -345,15 +378,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost/learn/ci4-api/public",
-					"protocol": "https",
+					"raw": "{{baseUrl}}",
 					"host": [
-						"localhost"
-					],
-					"path": [
-						"learn",
-						"ci4-api",
-						"public"
+						"{{baseUrl}}"
 					]
 				}
 			},
@@ -375,19 +402,44 @@
 					]
 				},
 				"url": {
-					"raw": "https://localhost/learn/ci4-api/public",
-					"protocol": "https",
+					"raw": "{{baseUrl}}",
 					"host": [
-						"localhost"
-					],
-					"path": [
-						"learn",
-						"ci4-api",
-						"public"
+						"{{baseUrl}}"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://localhost/learn/ci4-api/public"
+		},
+		{
+			"key": "accessToken",
+			"value": "---",
+			"type": "default"
 		}
 	]
 }

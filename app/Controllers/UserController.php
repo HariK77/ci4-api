@@ -22,11 +22,39 @@ class UserController extends BaseController
 	public function index()
 	{
 		$isDeleted = $this->request->getVar('deleted');
-		if ((int) $isDeleted) {
-			$users = $this->user->onlyDeleted()->findAll();
-		} else {
-			$users = $this->user->findAll();			
+		$type = $this->request->getVar('type');
+		$limit = $this->request->getVar('limit');
+
+		// if ((int) $isDeleted) {
+		// 	if ($type) {
+		// 		$users = $this->user->where('type', $type)->onlyDeleted()->findAll();
+		// 	} else {
+		// 		$users = $this->user->onlyDeleted()->findAll();
+		// 	}
+		// } else {
+		// 	if ($type) {
+		// 		$users = $this->user->where('type', $type)->findAll();
+		// 	} else {
+		// 		$users = $this->user->findAll();
+		// 	}
+		// }
+
+		$builder = $this->user->builder();
+
+		if ($type) {
+			$builder->where('type', $type);
 		}
+		if ((int) $isDeleted) {
+			$builder->where('deleted_at !=', '');
+		} else {
+			$builder->where('deleted_at =', null);
+		}
+
+		if ($limit) {
+			$builder->limit($limit);
+		}
+
+		$users = $builder->get()->getResult();
 
 		$response = [
             'status' => 200,

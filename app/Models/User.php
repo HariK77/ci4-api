@@ -15,7 +15,7 @@ class User extends Model
 	protected $returnType           = 'object';
 	protected $useSoftDeletes       = true;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['name', 'email', 'password'];
+	protected $allowedFields        = ['name', 'email', 'password', 'type', 'deleted_at'];
 
 	// Dates
 	protected $useTimestamps        = true;
@@ -44,6 +44,7 @@ class User extends Model
 
     protected function beforeInsert(array $data): array
     {
+		helper('basic');
         if (isset($data['data']['password'])) {
             $plaintextPassword = $data['data']['password'];
             $data['data']['password'] = hashPassword($plaintextPassword);
