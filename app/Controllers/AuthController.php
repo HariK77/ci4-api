@@ -54,13 +54,16 @@ class AuthController extends BaseController
     public function login()
     {
         $rules = [
-            'email' => 'required|min_length[6]|max_length[50]|valid_email',
+            'email' => 'required|min_length[6]|max_length[50]|valid_email|checkEmailRegistered[email]',
             'password' => 'required|min_length[8]|max_length[255]|validateUser[email, password]'
         ];
 
         $errorMessages = [
             'password' => [
                 'validateUser' => 'Invalid username or password'
+            ],
+            'email' => [
+                'checkEmailRegistered' => 'This email is not registered in our system'
             ]
         ];
 

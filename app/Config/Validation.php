@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Validation\CheckEmailRegistered;
 use App\Validation\ValidateUser;
 use CodeIgniter\Validation\CreditCardRules;
 use CodeIgniter\Validation\FileRules;
@@ -26,6 +27,7 @@ class Validation
         FileRules::class,
         CreditCardRules::class,
         ValidateUser::class,
+        CheckEmailRegistered::class,
     ];
 
     /**

@@ -18,11 +18,17 @@ class UserSeeder extends Seeder
 
 	private function generateUser(): array
 	{
+		$userTypes = ['admin', 'default', 'member'];
+
+		$deletedAt = [null, null, null, date('Y-m-d H:i:s')];
+
 		$faker = Factory::create();
 		return [
 			'name' => $faker->name(),
 			'email' => $faker->email,
-			'password' => 'password'
+			'password' => 'password',
+			'type' => $userTypes[rand(0,2)],
+			'deleted_at' => $deletedAt[rand(0, 3)]
 		];
 	}
 }

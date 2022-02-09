@@ -10,6 +10,9 @@ class ValidateUser
     {
         $model = new User();
         $user = $model->where('email', $data['email'])->first();
-        return password_verify($data['password'], $user->password);
+        if ($user) {
+            return password_verify($data['password'], $user->password);
+        }
+        return false;
     }
 }
