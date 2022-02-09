@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9f13c412-7295-4b83-b36d-d28ebc2ecc74",
+		"_postman_id": "927f8bfc-8d86-4c1b-b146-a4065bd7d05c",
 		"name": "Ci4 Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,17 +11,28 @@
 				{
 					"name": "Users List",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NpNC1hcGkuY29tIiwiYXVkIjoiaHR0cHM6Ly9jaTQtYXBpLmNvbSIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NDQxMzQxMDgsImV4cCI6MTY0NDE0MTMwOH0.dnE-dlQyOUc-xo0MayUvkDoDaCuIJlWWBaUfU0i3qQY",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ci4.api.com/users",
+							"raw": "https://localhost/learn/ci4-api/public/users",
 							"protocol": "https",
 							"host": [
-								"ci4",
-								"api",
-								"com"
+								"localhost"
 							],
 							"path": [
+								"learn",
+								"ci4-api",
+								"public",
 								"users"
 							]
 						}
@@ -59,14 +70,15 @@
 							]
 						},
 						"url": {
-							"raw": "https://ci4.api.com/users",
+							"raw": "https://localhost/learn/ci4-api/public/users",
 							"protocol": "https",
 							"host": [
-								"ci4",
-								"api",
-								"com"
+								"localhost"
 							],
 							"path": [
+								"learn",
+								"ci4-api",
+								"public",
 								"users"
 							]
 						}
@@ -79,14 +91,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ci4.api.com/users/1",
+							"raw": "https://localhost/learn/ci4-api/public/users/1",
 							"protocol": "https",
 							"host": [
-								"ci4",
-								"api",
-								"com"
+								"localhost"
 							],
 							"path": [
+								"learn",
+								"ci4-api",
+								"public",
 								"users",
 								"1"
 							]
@@ -120,14 +133,15 @@
 							]
 						},
 						"url": {
-							"raw": "https://ci4.api.com/users/1",
+							"raw": "https://localhost/learn/ci4-api/public/users/1",
 							"protocol": "https",
 							"host": [
-								"ci4",
-								"api",
-								"com"
+								"localhost"
 							],
 							"path": [
+								"learn",
+								"ci4-api",
+								"public",
 								"users",
 								"1"
 							]
@@ -141,16 +155,183 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://ci4.api.com/users/2",
+							"raw": "https://localhost/learn/ci4-api/public/users/3",
 							"protocol": "https",
 							"host": [
-								"ci4",
-								"api",
-								"com"
+								"localhost"
 							],
 							"path": [
+								"learn",
+								"ci4-api",
+								"public",
 								"users",
-								"2"
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Manage Excel",
+			"item": [
+				{
+					"name": "Download",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost/learn/ci4-api/public/excel-export",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"learn",
+								"ci4-api",
+								"public",
+								"excel-export"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Excel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/krish/Downloads/excel_upload.xlsx"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost/learn/ci4-api/public/excel-import",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"learn",
+								"ci4-api",
+								"public",
+								"excel-import"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "test5@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "password",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost/learn/ci4-api/public/auth/regsiter",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"learn",
+								"ci4-api",
+								"public",
+								"auth",
+								"regsiter"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Test User",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost/learn/ci4-api/public/auth/login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"learn",
+								"ci4-api",
+								"public",
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -164,12 +345,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://ci4.api.com",
+					"raw": "https://localhost/learn/ci4-api/public",
 					"protocol": "https",
 					"host": [
-						"ci4",
-						"api",
-						"com"
+						"localhost"
+					],
+					"path": [
+						"learn",
+						"ci4-api",
+						"public"
 					]
 				}
 			},
@@ -191,12 +375,15 @@
 					]
 				},
 				"url": {
-					"raw": "https://ci4.api.com",
+					"raw": "https://localhost/learn/ci4-api/public",
 					"protocol": "https",
 					"host": [
-						"ci4",
-						"api",
-						"com"
+						"localhost"
+					],
+					"path": [
+						"learn",
+						"ci4-api",
+						"public"
 					]
 				}
 			},
