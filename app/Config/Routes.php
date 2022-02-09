@@ -42,13 +42,17 @@ $routes->post('auth/regsiter', 'AuthController::register');
 $routes->post('auth/login', 'AuthController::login');
 
 // user routes
-$routes->get('users', 'UserController::index', ['filter' => 'jwtauth']);
-// $routes->get('users/create', 'UserController::create');
-$routes->post('users', 'UserController::store');
-$routes->get('users/(:num)', 'UserController::show/$1');
-// $routes->get('users/(:num)/edit', 'UserController::edit/$1');
-$routes->patch('users/(:num)', 'UserController::update/$1');
-$routes->delete('users/(:num)', 'UserController::delete/$1');
+$routes->group('users', ['filter' => 'jwtauth'], function($routes){
+
+    $routes->get('', 'UserController::index');
+    // $routes->get('/create', 'UserController::create');
+    $routes->post('', 'UserController::store');
+    $routes->get('(:num)', 'UserController::show/$1');
+    // $routes->get('/(:num)/edit', 'UserController::edit/$1');
+    $routes->patch('(:num)', 'UserController::update/$1');
+    $routes->delete('(:num)', 'UserController::delete/$1');
+
+});
 
 // excel routes
 $routes->get('excel-export', 'ExcelController::export');

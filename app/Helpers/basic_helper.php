@@ -28,16 +28,6 @@ function hashPassword($plain_text_password)
     return password_hash($plain_text_password, PASSWORD_BCRYPT);
 }
 
-function getErrorClass($errorsObject, $field)
-{
-    return $errorsObject->hasError($field) ? 'is-invalid' : '';
-}
-
-function getErrorMessage($errorsObject, $field)
-{
-    return $errorsObject->hasError($field) ? $errorsObject->getError($field) : '';
-}
-
 function odd(...$params)
 {
     echo '<pre>';

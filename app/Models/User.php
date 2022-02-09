@@ -51,14 +51,4 @@ class User extends Model
         return $data;
     }
 
-	public function findByEmail(string $email)
-    {
-        $user = $this->asArray()->where(['email' => $email])->first();
-
-        if (!$user) 
-            throw new Exception('User does not exist for specified email address');
-
-        return $user;
-    }
-
 }

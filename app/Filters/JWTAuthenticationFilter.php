@@ -2,17 +2,15 @@
 
 namespace App\Filters;
 
-use CodeIgniter\API\ResponseTrait;
+use App\Libraries\JWTAuth;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Services;
 use Exception;
 
-
 class JWTAuthenticationFilter implements FilterInterface
 {
-    use ResponseTrait;
     /**
      * Do whatever processing this filter needs to do.
      * By default it should not return anything during
@@ -32,25 +30,26 @@ class JWTAuthenticationFilter implements FilterInterface
     {
         $authenticationHeader = $request->getServer('HTTP_AUTHORIZATION');
 
-        try {
-
-            helper(['jwt', 'basic']);
-            $encodedToken = getJWTFromRequest($authenticationHeader);
-            // odd($encodedToken);
-            validateJWTFromRequest($encodedToken);
-            return $request;
-
-        } catch (Exception $e) {
-
+        if (is_null($authenticationHeader)) { //JWT is absent
             return Services::response()
-                ->setJSON(
-                    [
-                        'error' => $e->getMessage()
-                    ]
-                )
+                ->setJSON(['error' => 'Not Authticated'])
                 ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
-
         }
+
+        //JWT is sent from client in the format Bearer XXXXXXXXX
+        $encodedToken = explode(' ', $authenticationHeader)[1];
+
+        // Validate JWT Token
+        $JWTAuth = new JWTAuth();
+
+        try {
+            $JWTAuth->validateJWTFromRequest($encodedToken);
+        } catch (Exception $e) {
+            return Services::response()
+                ->setJSON(['error' => $e->getMessage()])
+                ->setStatusCode(ResponseInterface::HTTP_UNAUTHORIZED);
+        }
+        return $request;
     }
 
     /**
