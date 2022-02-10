@@ -29,11 +29,11 @@ If any issues in installation visit this page
 - create a .env file, run `$ cp env .env` (In windows just rename the file manually).
 - Uncomment CI_ENVIRONMENT line in .env and make it 'development' instead of production.
 - configure db connections and base url in .env (change base url in App.php also).
-- Add the following JWT_SECRET_KEY and JWT_TIME_TO_LIVE in your .env file.
-    #JWT_SECRET_KEY key is the secret key used by the application to sign JWTS. Pick a stronger one for production.
-    `JWT_SECRET_KEY = kzUf4sxss4AeG5uHkNZAqT1Nyi1zVfpz` 
-    #JWT_TIME_TO_LIVE indicates the validity period of a signed JWT (in milliseconds)
-    `JWT_TIME_TO_LIVE = 7200`
+- Add the following JWT_SECRET_KEY and JWT_TIME_TO_LIVE in your .env file. <br />
+    #JWT_SECRET_KEY key is the secret key used by the application to sign JWTS. Pick a stronger one for production.<br />
+    `JWT_SECRET_KEY = kzUf4sxss4AeG5uHkNZAqT1Nyi1zVfpz` <br />
+    #JWT_TIME_TO_LIVE indicates the validity period of a signed JWT (in milliseconds).<br />
+    `JWT_TIME_TO_LIVE = 7200`<br />
 - create database and run `$ php spark migrate`.
 - create dummy data in user table with `$ php spark db:seed UserSeeder`.
 - Test it using http://localhost/ci4-api/public.
