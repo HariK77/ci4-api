@@ -10,9 +10,7 @@ class StatusController extends BaseController
 	public function index()
 	{
 		$response = [
-			'messages' => [
-				'success' => 'Rest Api is running'
-			]
+			'status' => 'Rest Api is running'
 		];
 
 		if ($this->request->getMethod() === 'post') {
@@ -34,13 +32,11 @@ class StatusController extends BaseController
 			}
 	
 			$response = [
-				'messages' => [
-					'success' => "Your post request is successful, you post param is {$this->request->getVar('name')}"
-				]
+				'status' => "Your post request is successful, you post param is {$this->request->getVar('name')}"
 			];
 		}
 
-		return $this->respond($response);
+		return $this->respond($response, null, 'Status Ok');
 	}
 
 }

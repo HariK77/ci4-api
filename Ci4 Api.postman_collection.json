@@ -10,6 +10,32 @@
 			"item": [
 				{
 					"name": "Users List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"const user = response[0];\r",
+									"\r",
+									"if (user) {\r",
+									"    pm.globals.set(\"userId\", user.id);\r",
+									"}\r",
+									"\r",
+									"pm.test('User Found', () => {\r",
+									"    pm.expect(user).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -24,7 +50,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/users?type=admin&limit=5",
+							"raw": "{{baseUrl}}/users?type=admin",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -44,7 +70,8 @@
 								},
 								{
 									"key": "limit",
-									"value": "5"
+									"value": "5",
+									"disabled": true
 								}
 							]
 						}
@@ -53,6 +80,19 @@
 				},
 				{
 					"name": "Add User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -71,22 +111,22 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Krishna",
+									"value": "{{$randomFullName}}",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "krishna@gmail.com",
+									"value": "{{$randomEmail}}",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "admin@123",
+									"value": "password",
 									"type": "text"
 								},
 								{
 									"key": "password_confirmation",
-									"value": "admin@123",
+									"value": "password",
 									"type": "text"
 								}
 							]
@@ -105,6 +145,19 @@
 				},
 				{
 					"name": "Get User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -130,7 +183,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "1"
+									"value": "{{userId}}"
 								}
 							]
 						}
@@ -139,6 +192,19 @@
 				},
 				{
 					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -176,17 +242,29 @@
 									"key": "type",
 									"value": "admin",
 									"type": "default"
+								},
+								{
+									"key": "deleted_at",
+									"value": "null",
+									"type": "default",
+									"disabled": true
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/1",
+							"raw": "{{baseUrl}}/users/:userId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"users",
-								"1"
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
 							]
 						}
 					},
@@ -194,6 +272,21 @@
 				},
 				{
 					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// postman.setNextRequest(null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -208,13 +301,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/users/77",
+							"raw": "{{baseUrl}}/users/:userId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"users",
-								"77"
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{userId}}"
+								}
 							]
 						}
 					},
@@ -276,6 +375,26 @@
 			"item": [
 				{
 					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response) {\r",
+									"\r",
+									"    pm.globals.set(\"userEmail\", response.email);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -284,12 +403,12 @@
 							"urlencoded": [
 								{
 									"key": "name",
-									"value": "Test",
+									"value": "{{$randomFullName}}",
 									"type": "default"
 								},
 								{
 									"key": "email",
-									"value": "test5@gmail.com",
+									"value": "{{$randomEmail}}",
 									"type": "default"
 								},
 								{
@@ -336,6 +455,29 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (response.access_token) {\r",
+									"    pm.collectionVariables.set(\"accessToken\", response.access_token);\r",
+									"}\r",
+									"\r",
+									"pm.test('User Found', () => {\r",
+									"    pm.expect(response).to.be.an('object');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -347,7 +489,7 @@
 							"urlencoded": [
 								{
 									"key": "email",
-									"value": "schimmel.mason@hotmail.com",
+									"value": "{{userEmail}}",
 									"type": "default"
 								},
 								{
@@ -374,6 +516,30 @@
 		},
 		{
 			"name": "Check Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"\r",
+							"console.log(response.status);\r",
+							"\r",
+							"pm.test('Check status message', () => {\r",
+							"    pm.expect(response.status).to.eql(\"Rest Api is running\");\r",
+							"});\r",
+							"\r",
+							"// postman.setNextRequest('Users List');\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -388,16 +554,29 @@
 		},
 		{
 			"name": "Status Check Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
+					"mode": "urlencoded",
+					"urlencoded": [
 						{
 							"key": "name",
 							"value": "Hari Krishna",
-							"type": "text"
+							"type": "default"
 						}
 					]
 				},
