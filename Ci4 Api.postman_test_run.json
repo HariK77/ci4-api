@@ -1,0 +1,284 @@
+{
+	"id": "126ed477-b92c-49c7-9906-65db1773bd14",
+	"name": "Ci4 Api",
+	"timestamp": "2022-02-10T04:09:48.138Z",
+	"collection_id": "0-927f8bfc-8d86-4c1b-b146-a4065bd7d05c",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 11,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "3a1f54ff-84f7-4b79-a142-b1b8af52d871",
+			"name": "Check Status",
+			"url": "https://localhost/learn/ci4-api/public",
+			"time": 37,
+			"responseCode": {
+				"code": 200,
+				"name": "Status Ok"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"Check status message": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check status message": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				37
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"Check status message": true
+				}
+			]
+		},
+		{
+			"id": "fafb3d34-7562-4e89-bca3-e7e649086793",
+			"name": "Register",
+			"url": "https://localhost/learn/ci4-api/public/auth/regsiter",
+			"time": 195,
+			"responseCode": {
+				"code": 201,
+				"name": "Registered successfully"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				195
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "c8bdee5c-645d-4893-87eb-11b9e1b2bb25",
+			"name": "Login",
+			"url": "https://localhost/learn/ci4-api/public/auth/login",
+			"time": 183,
+			"responseCode": {
+				"code": 200,
+				"name": "User Authenticated Successfully"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"User Found": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User Found": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				183
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"User Found": true
+				}
+			]
+		},
+		{
+			"id": "5b161498-1193-4086-94a6-c21258b718d3",
+			"name": "Users List",
+			"url": "https://localhost/learn/ci4-api/public/users?type=admin",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "User List"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"User Found": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				},
+				"User Found": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				28
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"User Found": true
+				}
+			]
+		},
+		{
+			"id": "1d019d13-83b9-4c8d-8007-76b57dfeaae7",
+			"name": "Add User",
+			"url": "https://localhost/learn/ci4-api/public/users",
+			"time": 193,
+			"responseCode": {
+				"code": 201,
+				"name": "User has been added successfully"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				193
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "61d3f0e5-bf6b-4122-89fa-d2341e65ddcd",
+			"name": "Get User",
+			"url": "https://localhost/learn/ci4-api/public/users/9",
+			"time": 30,
+			"responseCode": {
+				"code": 200,
+				"name": "User data"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				30
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "01a0a8da-9eda-48f5-ba66-095ee2f2881a",
+			"name": "Update User",
+			"url": "https://localhost/learn/ci4-api/public/users/9",
+			"time": 32,
+			"responseCode": {
+				"code": 200,
+				"name": "User has been Updated."
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				32
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		},
+		{
+			"id": "412cbf58-698e-403d-af86-98d2a1b50401",
+			"name": "Delete User",
+			"url": "https://localhost/learn/ci4-api/public/users/9",
+			"time": 27,
+			"responseCode": {
+				"code": 200,
+				"name": "User has been soft Deleted"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				27
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 725,
+	"collection": {
+		"requests": [
+			{
+				"id": "3a1f54ff-84f7-4b79-a142-b1b8af52d871",
+				"method": "GET"
+			},
+			{
+				"id": "fafb3d34-7562-4e89-bca3-e7e649086793",
+				"method": "POST"
+			},
+			{
+				"id": "c8bdee5c-645d-4893-87eb-11b9e1b2bb25",
+				"method": "POST"
+			},
+			{
+				"id": "5b161498-1193-4086-94a6-c21258b718d3",
+				"method": "GET"
+			},
+			{
+				"id": "1d019d13-83b9-4c8d-8007-76b57dfeaae7",
+				"method": "POST"
+			},
+			{
+				"id": "61d3f0e5-bf6b-4122-89fa-d2341e65ddcd",
+				"method": "GET"
+			},
+			{
+				"id": "01a0a8da-9eda-48f5-ba66-095ee2f2881a",
+				"method": "POST"
+			},
+			{
+				"id": "412cbf58-698e-403d-af86-98d2a1b50401",
+				"method": "DELETE"
+			}
+		]
+	}
+}

@@ -11,7 +11,7 @@ class UserController extends BaseController
 
 	public function __construct()
 	{
-		$this->user = new User();
+		$this->userModel = new User();
 	}
 
 	/**
@@ -27,19 +27,19 @@ class UserController extends BaseController
 
 		// if ((int) $isDeleted) {
 		// 	if ($type) {
-		// 		$users = $this->user->where('type', $type)->onlyDeleted()->findAll();
+		// 		$users = $this->userModel->where('type', $type)->onlyDeleted()->findAll();
 		// 	} else {
-		// 		$users = $this->user->onlyDeleted()->findAll();
+		// 		$users = $this->userModel->onlyDeleted()->findAll();
 		// 	}
 		// } else {
 		// 	if ($type) {
-		// 		$users = $this->user->where('type', $type)->findAll();
+		// 		$users = $this->userModel->where('type', $type)->findAll();
 		// 	} else {
-		// 		$users = $this->user->findAll();
+		// 		$users = $this->userModel->findAll();
 		// 	}
 		// }
 
-		$builder = $this->user->builder();
+		$builder = $this->userModel->builder();
 
 		if ($type) {
 			$builder->where('type', $type);
@@ -56,14 +56,7 @@ class UserController extends BaseController
 
 		$users = $builder->get()->getResult();
 
-		$response = [
-            'status' => 200,
-            'error' => null,
-            'messages' => "Users List",
-            "data" => $users,
-        ];
-
-		return $this->respond($response);
+		return $this->respond($users, 200, 'User List');
 	}
 
 	/**
@@ -90,15 +83,10 @@ class UserController extends BaseController
 		$requestData = $this->request->getVar();
 		// $requestData['password'] = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
 
-		$this->user->insert($requestData);
+		$userId = $this->userModel->insert($requestData);
+        $user = $this->userModel->find($userId);
 
-		$response = [
-            'status' => 201,
-            'error' => null,
-            'messages' => "Registered successfully",
-        ];
-
-		return $this->respond($response);
+		return $this->respondCreated($user, 'User has been added successfully');
 	}
 
 	/**
@@ -108,16 +96,10 @@ class UserController extends BaseController
 	 */
 	public function show($id = null)
 	{
-		$user = $this->user->where(['id' => $id])->first();
+		$user = $this->userModel->where(['id' => $id])->first();
 
 		if ($user) {
-			$response = [
-				'status' => 200,
-				'error' => null,
-				'messages' => "User Found",
-				"data" => $user,
-			];
-			return $this->respond($response);
+			return $this->respond($user, 200, 'User data');
 		} else {
 			return $this->failNotFound('No User Found with id ' . $id);
 		}
@@ -157,14 +139,9 @@ class UserController extends BaseController
 		unset($data['_method']);
 
 		if (count($data)) {
-			$this->user->update($id, $data);
-
-			$response = [
-				'status' => 200,
-				'error' => null,
-				'messages' => "User has been Updated."
-			];
-			return $this->respondUpdated($response);
+			$this->userModel->update($id, $data);
+			$user = $this->userModel->find($id);
+			return $this->respondUpdated($user, "User has been Updated.");
 		} else {
 			return $this->fail('There is not data to update');
 		}
@@ -178,16 +155,11 @@ class UserController extends BaseController
 	 */
 	public function delete($id = null)
 	{
-		$data = $this->user->find($id);
+		$data = $this->userModel->find($id);
 
 		if ($data) {
-			$this->user->delete($id);
-			$response = [
-				'status' => 200,
-				'error' => null,
-				'messages' => "User has been soft Deleted",
-			];
-			return $this->respondDeleted($response);
+			$this->userModel->delete($id);
+			return $this->respondDeleted($data, 'User has been soft Deleted');
 		} else {
 			return $this->failNotFound('No User Found with id ' . $id);
 		}
