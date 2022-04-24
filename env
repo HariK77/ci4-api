@@ -20,7 +20,7 @@ CI_ENVIRONMENT = development
 # APP
 #--------------------------------------------------------------------
 
-app.baseURL = 'https://ci4-api.com'
+app.baseURL = 'http://ci4.api.local'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -38,9 +38,9 @@ app.baseURL = 'https://ci4-api.com'
 #--------------------------------------------------------------------
 
 database.default.hostname = localhost
-database.default.database = learn_ci4
+database.default.database = ci4_api
 database.default.username = maxx
-database.default.password = maxx@123
+database.default.password = maxx123
 database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
 
@@ -50,6 +50,10 @@ database.default.DBDriver = MySQLi
 # database.tests.password = root
 # database.tests.DBDriver = MySQLi
 # database.tests.DBPrefix =
+
+# JWT
+JWT_SECRET_KEY = kzUf4sxss4AeG5uHkNZAqT1Nyi1zVfpz
+JWT_TIME_TO_LIVE = 7200
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY
