@@ -45,7 +45,7 @@ class UserController extends BaseController
 			$builder->where('type', $type);
 		}
 		if ((int) $isDeleted) {
-			$builder->where('deleted_at !=', '');
+			$builder->where('deleted_at IS NOT NULL');
 		} else {
 			$builder->where('deleted_at =', null);
 		}
